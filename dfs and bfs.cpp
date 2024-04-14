@@ -21,10 +21,10 @@ void dfs(vector<vector<ll>> &v, ll node){
     }
     return ;
 }
+queue<ll>q ;
 void bfs(vector<vector<ll>>&v,ll node){
     if (vis[node]==1) return ;
     vis[node]= 1 ;
-    queue<ll> q ;
     for(auto x:v[node]){
         q.push(x) ;
     }
