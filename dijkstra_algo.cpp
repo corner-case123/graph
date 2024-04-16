@@ -16,9 +16,9 @@ struct node{
     ll dis ; 
 } ;
 ll n , m  ;
+
+
 vll vis ; 
-
-
 vector<vector<pll>> v ; 
 priority_queue<pll,vector<pll>,greater<pll>> q  ;
 void dijkstra(vector<vector<pll>> &v,node Node){
