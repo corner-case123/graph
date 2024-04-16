@@ -1,3 +1,5 @@
+        // diff between dijkstra and bfs is the use of priority_queue instead of queue
+
 #include<bits/stdc++.h>
 #define ll long long 
 #define ff first
