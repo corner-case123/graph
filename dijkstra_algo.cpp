@@ -11,58 +11,53 @@
 #define ln '\n'
 using namespace std;
 
-void dijkstra(vector<vector<pll>>& graph, vll& dist, ll start) {
-    // pll is the elements of the priority_queue 
-    // vector<pll> is the conatiner used by the queue
-    // greater<pll> is the comparator function to set the priority 
-    priority_queue<pll,vector<pll>,greater<pll>> pq;
-    pq.push({0, start});
-    dist[start] = 0;
+struct node{
+    ll me ; 
+    ll dis ; 
+} ;
+ll n , m  ;
+vll vis ; 
 
-    while (!pq.empty()) {
-        ll u = pq.top().second;
-        ll u_dist = pq.top().first;
-        pq.pop();
 
-        if (u_dist > dist[u]) continue;
-
-        for (auto& neighbor : graph[u]) {
-            ll v = neighbor.first;
-            ll uv_weight = neighbor.second;
-
-            if (dist[u] + uv_weight < dist[v]) {
-                dist[v] = dist[u] + uv_weight;
-                pq.push({dist[v], v});
-            }
-        }
+vector<vector<pll>> v ; 
+priority_queue<pll,vector<pll>,greater<pll>> q  ;
+void dijkstra(vector<vector<pll>> &v,node Node){
+    if (Node.dis>=vis[Node.me]) return ;
+    vis[Node.me] = Node.dis ;
+    for(auto x:v[Node.me]){
+        pll N ; N.ss = x.ff ; N.ff = (Node.dis+x.ss) ;
+        q.push(N) ;
     }
+    while(!q.empty()){
+        node N ; N.me = q.top().ss ; N.dis =  q.top().ff ;
+        q.pop() ;
+        dijkstra(v,N) ;
+    }
+    return ;
 }
 
 void solve(){
-    ll n, m;
-    cin >> n >> m;
-    vector<vector<pll>> graph(n + 1);
-    vll dist(n + 1, LLONG_MAX);
-
-    loop(m) {
-        ll x, y, c;
-        cin >> x >> y >> c;
-        graph[x].push_back({y, c});
+    cin >> n >> m ;
+    v.resize(n+1) ;
+    vis.resize(n+1,LLONG_MAX) ;
+    loop(m){
+        ll x , y , c ;  cin >> x >> y >> c ;
+        v[x].push_back({y,c}) ;
     }
-
-    dijkstra(graph, dist, 1);
-
-    for(ll i = 1; i <= n; i++) {
-        cout << dist[i] << " ";
+    node Node ; Node.me = 1 ; Node.dis = 0 ;
+    dijkstra(v,Node) ;
+    for(ll i=1;i<=n;i++){
+        cout << vis[i] << ' ' ;
     }
-    cout << ln;
+    cout << ln ;
+    return ;
 }
 
 int main(){
     ll t = 1;
     ios_base::sync_with_stdio(false);
-    cin.tie(NULL);
-
+    cin.tie(NULL) ;
+    //cin >> t  ;
     while(t--) solve();
     return 0;
 }
