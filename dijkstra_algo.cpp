@@ -1,4 +1,7 @@
         // diff between dijkstra and bfs is the use of priority_queue instead of queue
+        // actually the idea is same as bfs (where the distance from source is the priority)
+        // in short -> bfs is (0-1)dijkstra or (simplified dijkstra)
+        // but in weighted graph (the distance between two adjacent nodes is not 1 (any random value))
 
 #include<bits/stdc++.h>
 #define ll long long 
